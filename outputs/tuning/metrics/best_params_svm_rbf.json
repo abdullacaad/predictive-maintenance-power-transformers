@@ -1,0 +1,4 @@
+{
+  "model__gamma": "scale",
+  "model__C": 1.0
+}

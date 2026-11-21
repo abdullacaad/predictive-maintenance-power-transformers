@@ -1,0 +1,55 @@
+{
+  "currency": "GBP",
+  "priority_thresholds": {
+    "critical": 0.7,
+    "urgent": 0.5,
+    "planned": 0.25
+  },
+  "severity_by_class": {
+    "High-energy Discharge": 1.0,
+    "High-temperature Overheating": 0.82,
+    "Partial Discharge": 0.74,
+    "Low-energy Discharge": 0.62,
+    "Medium-temperature Overheating": 0.52,
+    "Low-temperature Overheating": 0.35,
+    "Normal": 0.05
+  },
+  "fault_event_multiplier_by_class": {
+    "High-energy Discharge": 1.0,
+    "High-temperature Overheating": 0.78,
+    "Partial Discharge": 0.67,
+    "Low-energy Discharge": 0.55,
+    "Medium-temperature Overheating": 0.4,
+    "Low-temperature Overheating": 0.22,
+    "Normal": 0.03
+  },
+  "recommended_actions_by_class": {
+    "High-energy Discharge": "Immediate engineering review and controlled shutdown planning.",
+    "High-temperature Overheating": "Plan urgent inspection, thermal verification, and load reduction review.",
+    "Partial Discharge": "Schedule insulation-focused diagnostic inspection and intensified monitoring.",
+    "Low-energy Discharge": "Inspect bushings, connections, and repeat DGA in the near term.",
+    "Medium-temperature Overheating": "Plan maintenance outage and investigate cooling or contact resistance issues.",
+    "Low-temperature Overheating": "Monitor trend and schedule routine inspection if repeated.",
+    "Normal": "Continue standard monitoring cadence."
+  },
+  "response_target_hours": {
+    "Critical": 4,
+    "Urgent": 24,
+    "Planned": 168,
+    "Routine": 720
+  },
+  "planned_intervention_cost_by_priority": {
+    "Critical": 50000.0,
+    "Urgent": 15000.0,
+    "Planned": 5000.0,
+    "Routine": 250.0
+  },
+  "reactive_strategy": {
+    "repair_cost": 1250000.0,
+    "downtime_cost": 250000.0
+  },
+  "predictive_strategy": {
+    "monitoring_cost_per_asset": 750.0,
+    "preventive_effectiveness": 0.45
+  }
+}

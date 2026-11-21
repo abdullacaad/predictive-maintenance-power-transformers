@@ -1,0 +1,13 @@
+                                precision    recall  f1-score   support
+
+         High-energy Discharge       0.62      0.74      0.68        47
+  High-temperature Overheating       0.87      0.77      0.82        84
+          Low-energy Discharge       0.76      0.48      0.59        46
+   Low-temperature Overheating       0.29      0.35      0.32        17
+Medium-temperature Overheating       0.44      0.60      0.51        20
+                        Normal       0.92      0.96      0.94       111
+             Partial Discharge       0.84      0.88      0.86        24
+
+                      accuracy                           0.77       349
+                     macro avg       0.68      0.68      0.67       349
+                  weighted avg       0.78      0.77      0.77       349

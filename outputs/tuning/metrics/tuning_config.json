@@ -1,0 +1,12 @@
+{
+  "dataset_path": "D:\\MY PROJECTS\\THESIS\\data\\raw\\transformer-fault-dataset-main\\data.xlsx",
+  "samples_total": 2321,
+  "train_val_samples": 1972,
+  "test_samples": 349,
+  "cv_folds": 3,
+  "n_iter_per_model": 4,
+  "use_smote": true,
+  "random_state": 42,
+  "best_model": "random_forest",
+  "primary_metric": "cv_best_f1_macro"
+}

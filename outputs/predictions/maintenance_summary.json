@@ -1,0 +1,29 @@
+{
+  "currency": "GBP",
+  "sample_count": 2321,
+  "average_risk_score": 0.4699,
+  "priority_counts": {
+    "Routine": 738,
+    "Critical": 666,
+    "Urgent": 638,
+    "Planned": 279
+  },
+  "predicted_class_counts": {
+    "Normal": 733,
+    "High-temperature Overheating": 556,
+    "High-energy Discharge": 308,
+    "Low-energy Discharge": 302,
+    "Partial Discharge": 161,
+    "Medium-temperature Overheating": 132,
+    "Low-temperature Overheating": 129
+  },
+  "total_expected_reactive_cost": 1635848156.52,
+  "total_expected_predictive_cost": 945906736.09,
+  "estimated_net_savings": 689941420.44,
+  "assumptions": {
+    "reactive_repair_cost": 1250000.0,
+    "reactive_downtime_cost": 250000.0,
+    "monitoring_cost_per_asset": 750.0,
+    "preventive_effectiveness": 0.45
+  }
+}

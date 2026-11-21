@@ -1,0 +1,39 @@
+{
+  "dataset_path": "D:\\MY PROJECTS\\THESIS data science\\code\\data\\raw\\transformer-fault-dataset-main\\data.xlsx",
+  "samples_total": 2321,
+  "features": [
+    "H2",
+    "CH4",
+    "C2H6",
+    "C2H4",
+    "C2H2"
+  ],
+  "target_column": "Fault Type",
+  "classes": [
+    "High-energy Discharge",
+    "High-temperature Overheating",
+    "Low-energy Discharge",
+    "Low-temperature Overheating",
+    "Medium-temperature Overheating",
+    "Normal",
+    "Partial Discharge"
+  ],
+  "class_distribution": {
+    "Normal": 740,
+    "High-temperature Overheating": 558,
+    "High-energy Discharge": 309,
+    "Low-energy Discharge": 305,
+    "Partial Discharge": 158,
+    "Medium-temperature Overheating": 133,
+    "Low-temperature Overheating": 118
+  },
+  "split_sizes": {
+    "train": 1624,
+    "validation": 348,
+    "test": 349
+  },
+  "random_state": 42,
+  "use_smote": true,
+  "primary_metric": "val_f1_macro",
+  "best_model": "random_forest"
+}

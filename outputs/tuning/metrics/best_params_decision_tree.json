@@ -1,0 +1,6 @@
+{
+  "model__min_samples_split": 10,
+  "model__min_samples_leaf": 4,
+  "model__max_depth": null,
+  "model__criterion": "log_loss"
+}

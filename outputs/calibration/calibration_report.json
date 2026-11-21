@@ -1,0 +1,29 @@
+{
+  "base_thresholds": {
+    "critical": 0.7,
+    "urgent": 0.5,
+    "planned": 0.25
+  },
+  "calibrated_thresholds": {
+    "critical": 0.783438,
+    "urgent": 0.679969,
+    "planned": 0.429338
+  },
+  "target_priority_mix": {
+    "Critical": 0.15,
+    "Urgent": 0.2,
+    "Planned": 0.25
+  },
+  "achieved_priority_mix": {
+    "Critical": 0.1499,
+    "Urgent": 0.1995,
+    "Planned": 0.2503,
+    "Routine": 0.4003
+  },
+  "sample_count": 2321,
+  "estimated_net_savings": 706908670.73,
+  "total_expected_predictive_cost": 928939486.45,
+  "total_expected_reactive_cost": 1635848157.18,
+  "sensitivity_analysis_rows": 25,
+  "recommended_use": "Use the calibrated thresholds for dissertation sensitivity analysis unless utility-specific workload targets are available."
+}
