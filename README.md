@@ -91,7 +91,9 @@ Data flows left to right: DGA gas readings are loaded and harmonized, five basel
 
 ## 🖼️ Screenshots
 
-No screenshots are included yet — none were faked for this README. Add real screenshots from a live run of the Streamlit app (http://localhost:8502) as `docs/screenshots/app-overview.png`, and they will show here.
+![Streamlit app console — Predictive Maintenance of Power Transformers](docs/screenshots/app-overview.png)
+
+*Live run of the Streamlit app: upload a DGA spreadsheet, run maintenance scoring, and see the results — 2,321 samples scored, average risk 0.470, scoring accuracy 0.9561, starting macro-F1 0.9326, net savings GBP 689,941,420, with the Top Priority Queue (mostly High-energy Discharge, Critical), Predicted Class Mix and Priority Distribution charts.*
 
 ---
 
