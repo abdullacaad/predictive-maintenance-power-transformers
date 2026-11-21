@@ -1,6 +1,22 @@
-# Transformer DGA Predictive Maintenance
+<div align="center">
+
+# ⚡ Transformer DGA Predictive Maintenance
+
+**Predict transformer faults before they fail — machine learning on dissolved gas analysis, with risk scoring and a maintenance plan.**
+
+![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-1.7-F7931E?logo=scikitlearn&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-1.44-FF4B4B?logo=streamlit&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-2.3-150458?logo=pandas&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green)
+
+*Dissolved Gas Analysis (DGA) · 5 ML models · SMOTE · Risk scoring · Streamlit app*
 
 Comprehensive Technical Manual and Thesis Alignment Guide
+
+</div>
+
+---
 
 ## ⚡ Quick Start (Read This First!)
 
@@ -16,6 +32,55 @@ Then open your browser to: **http://localhost:8502**
 That's it! The app is ready to use.
 
 ---
+
+## 📑 Contents
+
+- [Quick Start](#-quick-start-read-this-first)
+- [Architecture](#️-architecture)
+- [Screenshots](#️-screenshots)
+- [1. Purpose of This README](#1-purpose-of-this-readme)
+- [2. What This Project Actually Implements](#2-what-this-project-actually-implements)
+- [3. Repository Layout and Responsibility](#3-repository-layout-and-responsibility)
+- [4. Exact Runtime Dependencies](#4-exact-runtime-dependencies)
+- [5. Data Contract (Hard Requirements)](#5-data-contract-hard-requirements)
+- [6. Reproducibility Rules](#6-reproducibility-rules)
+- [7. Baseline Training Pipeline](#7-baseline-training-pipeline)
+- [8. Hyperparameter Tuning Pipeline](#8-hyperparameter-tuning-pipeline)
+- [9. Inference and Scoring Pipeline](#9-inference-and-scoring-pipeline)
+- [10. Maintenance Decision Engine](#10-maintenance-decision-engine)
+- [11. Calibration and Sensitivity Module](#11-calibration-and-sensitivity-module)
+- [12. Streamlit App (Operational UI)](#12-streamlit-app-operational-ui)
+- [13. Output Files and Schemas](#13-output-files-and-schemas)
+- [14. Current Verified Results Snapshot](#14-current-verified-results-snapshot)
+- [15. Thesis Alignment Guide (Chapter by Chapter)](#15-thesis-alignment-guide-chapter-by-chapter)
+- [16. Contradictions to Avoid in Thesis Text](#16-contradictions-to-avoid-in-thesis-text)
+- [17. Known Limitations](#17-known-limitations)
+- [18. Recommended Next Steps](#18-recommended-next-steps)
+- [19. Minimal Command Runbook](#19-minimal-command-runbook)
+- [20. Quick Audit Checklist Before Submission](#20-quick-audit-checklist-before-submission)
+
+## 🏗️ Architecture
+
+![Architecture](docs/architecture.svg)
+
+```mermaid
+flowchart LR
+    Data[DGA data<br/>Excel · 5 gases<br/>H2 CH4 C2H6 C2H4 C2H2] --> Train[Train 5 models<br/>SVM · RF · k-NN<br/>DT · MLP-ANN]
+    Train --> Score[Score + probabilities<br/>confidence · confidence gap]
+    Score --> Risk[Risk + maintenance engine<br/>risk score · priority<br/>cost vs savings]
+    Risk --> App[Streamlit app<br/>localhost:8502]
+    Train --> Tune[Tuning<br/>RandomizedSearchCV]
+    Score --> Calib[Calibration<br/>thresholds · sensitivity]
+```
+
+Data flows left to right: DGA gas readings are loaded and harmonized, five baseline models are trained (70/15/15 stratified split, SMOTE by default, best model by validation macro F1), scored samples get class probabilities, the maintenance engine turns predictions into a risk score, priority and expected cost/savings, and the Streamlit app presents it all for practical use.
+
+## 🖼️ Screenshots
+
+No screenshots are included yet — none were faked for this README. Add real screenshots from a live run of the Streamlit app (http://localhost:8502) as `docs/screenshots/app-overview.png`, and they will show here.
+
+---
+
 
 ## 1. Purpose of This README
 
