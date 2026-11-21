@@ -2,15 +2,17 @@
 
 # ⚡ Transformer DGA Predictive Maintenance
 
-**Predict transformer faults before they fail — machine learning on dissolved gas analysis, with risk scoring and a maintenance plan.**
+**Predict transformer faults before they fail — machine learning on dissolved gas analysis, with risk scoring and a maintenance plan. Containerized with Docker and built by CI, so the app runs the same anywhere.**
 
-![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-1.7-F7931E?logo=scikitlearn&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.44-FF4B4B?logo=streamlit&logoColor=white)
 ![Pandas](https://img.shields.io/badge/Pandas-2.3-150458?logo=pandas&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker&logoColor=white)
+![CI](https://img.shields.io/badge/CI-GitHub_Actions-2088FF?logo=githubactions&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-*Dissolved Gas Analysis (DGA) · 5 ML models · SMOTE · Risk scoring · Streamlit app*
+*Dissolved Gas Analysis (DGA) · 5 ML models · SMOTE · Risk scoring · Streamlit app · Docker · GitHub Actions CI*
 
 Comprehensive Technical Manual and Thesis Alignment Guide
 
@@ -31,11 +33,22 @@ Then open your browser to: **http://localhost:8502**
 
 That's it! The app is ready to use.
 
+### Or run it with Docker (recommended — same environment everywhere):
+
+```bash
+docker compose up -d --build
+```
+
+Then open your browser to: **http://localhost:8502**
+
+Stop it with `docker compose down`. See [🐳 Docker & DevOps](#-docker--devops) for the image, health check and CI details.
+
 ---
 
 ## 📑 Contents
 
 - [Quick Start](#-quick-start-read-this-first)
+- [Docker & DevOps](#-docker--devops)
 - [Architecture](#️-architecture)
 - [Screenshots](#️-screenshots)
 - [1. Purpose of This README](#1-purpose-of-this-readme)
@@ -71,13 +84,53 @@ flowchart LR
     Risk --> App[Streamlit app<br/>localhost:8502]
     Train --> Tune[Tuning<br/>RandomizedSearchCV]
     Score --> Calib[Calibration<br/>thresholds · sensitivity]
+    App --> Docker[Docker container<br/>python:3.11-slim · :8502<br/>health check · CI build]
 ```
 
-Data flows left to right: DGA gas readings are loaded and harmonized, five baseline models are trained (70/15/15 stratified split, SMOTE by default, best model by validation macro F1), scored samples get class probabilities, the maintenance engine turns predictions into a risk score, priority and expected cost/savings, and the Streamlit app presents it all for practical use.
+Data flows left to right: DGA gas readings are loaded and harmonized, five baseline models are trained (70/15/15 stratified split, SMOTE by default, best model by validation macro F1), scored samples get class probabilities, the maintenance engine turns predictions into a risk score, priority and expected cost/savings, and the Streamlit app presents it all for practical use. The whole app ships as a Docker container (see [Docker & DevOps](#-docker--devops)) — the same image is built and smoke-tested by CI on every push to `main`.
 
 ## 🖼️ Screenshots
 
 No screenshots are included yet — none were faked for this README. Add real screenshots from a live run of the Streamlit app (http://localhost:8502) as `docs/screenshots/app-overview.png`, and they will show here.
+
+---
+
+## 🐳 Docker & DevOps
+
+This is a DevOps project as well as an ML project: the app is containerized, and CI validates and builds it on every push.
+
+### The image (`Dockerfile`)
+
+| Detail | Value |
+|---|---|
+| Base image | `python:3.11-slim` |
+| App code | `/app`, with `PYTHONPATH=/app/src` |
+| Dependencies | Installed from `requirements.txt` with `--no-cache-dir` |
+| Exposed port | `8502` |
+| Health check | Every 30 s, hits `http://127.0.0.1:8502/_stcore/health` (20 s start period, 3 retries) |
+| Start command | `streamlit run app/streamlit_app.py --server.address=0.0.0.0 --server.port=8502` |
+
+### Run it (`docker-compose.yml`)
+
+```bash
+docker compose up -d --build   # build + start, port 8502:8502, restart unless-stopped
+docker compose ps               # check the container is up (healthy)
+docker compose logs -f          # follow the app logs
+docker compose down             # stop and remove the container
+```
+
+The compose service is named `transformer-maintenance` and maps port `8502:8502`. `.dockerignore` keeps `.git`, `.venv`, caches and editor files out of the image.
+
+### CI (`.github/workflows/ci.yml`)
+
+Runs on every push to `main` and on pull requests, in two jobs:
+
+| Job | What it does |
+|---|---|
+| `validate` | Installs Python 3.11 + dependencies, compiles all Python sources (`app`, `src`, `scripts`), and smoke-tests the trained model bundle (`outputs/models/best_model_bundle.joblib`) by loading it and printing its model name and labels |
+| `docker` | Builds the Docker image with Buildx (`docker/build-push-action@v6`), after `validate` passes |
+
+So a broken model bundle or a broken Dockerfile fails the pipeline before anything is deployed — the image is only built from validated code.
 
 ---
 
@@ -105,6 +158,7 @@ Primary capabilities:
 6. Threshold calibration for workload targeting.
 7. Cost sensitivity analysis.
 8. Streamlit interface for practical usage.
+9. Containerized deployment with Docker (`Dockerfile`, `docker-compose.yml`) and CI validation + image build on every push (see [Docker & DevOps](#-docker--devops)).
 
 Not implemented in this version:
 
@@ -148,6 +202,10 @@ Not implemented in this version:
 +   requirements.txt
 +   run_app.ps1
 +   run_app.bat
++   Dockerfile                     # python:3.11-slim, Streamlit on :8502, health check
++   docker-compose.yml             # service transformer-maintenance, 8502:8502
++   .dockerignore
++   .github/workflows/ci.yml       # validate (compile + model smoke test) then Docker build
 +```
 
 ## 4. Exact Runtime Dependencies
